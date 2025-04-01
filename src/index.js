@@ -1,5 +1,7 @@
 import pkg from '../package.json'
 import Chart from 'chart.js/auto'
+import 'chartjs-adapter-luxon'
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { LitElement, html } from 'lit'
 import _ from 'lodash'
 
@@ -73,6 +75,9 @@ class Card extends LitElement {
       }
       if (this._config.register_plugins.includes('annotation')) {
         Chart.register(annotationPlugin)
+      }
+      if (this._config.register_plugins.includes('datalabels')) {
+        Chart.register(ChartDataLabels)
       }
     }
 
