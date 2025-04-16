@@ -48395,6 +48395,8 @@
     _evaluateTemplate(template) {
       if (typeof template === 'string') {
         const regexTemplate = /^\${(.+)}$/g;
+        const regexEval = /EVAL:(.*)/g;
+        const eval2 = eval;
         if (_.includes(template, '${') && template.match(regexTemplate)) {
 
           const user = this.hass?.user;
@@ -48418,7 +48420,11 @@
               return evaluated
             }
           }
+
           return evaluated
+        }
+        if (template.match(regexEval)) {
+          return eval2(`(${template.trim().slice(5)})`);
         }
       }
       return template
